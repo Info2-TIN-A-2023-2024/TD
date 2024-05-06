@@ -63,9 +63,16 @@ void display_packet(const packet p)
 
 void send(const packet p, char *buff)
 {
-
+	uint8_t *ptr = (uint8_t *)p.d;
+	uint8_t cks = 0;
+	for (size_t index = 0; index < p.h.qty * sizeof(data);index++) {
+		cks += *(ptr+index);
+	}
+	printf("send: computed cks=%d\n", cks);
 	memcpy(buff, &(p.h), sizeof(header));
+	((packet *)buff)->h.checksum = cks;
 	memcpy(buff + sizeof(header), p.d, p.h.qty * sizeof(data));
+	
 }
 
 int receive(char *buff, packet *p)
@@ -78,6 +85,13 @@ int receive(char *buff, packet *p)
 		printf("receive:: Error while allocating data.\n");
 		return 1;
 	}
+	uint8_t *ptr = (uint8_t *)buff + sizeof(header);
+	uint8_t cks = 0;
+	for (size_t index = 0; index < p->h.qty * sizeof(data);index++) {
+		cks += *(ptr+index);
+	}
+	printf("receive: computed cks=%d, received cks=%d\n", cks, 	((packet *)buff)->h.checksum );
+
 	memcpy(p->d, buff + sizeof(header), p->h.qty * sizeof(data));
 	return 0;
 }
