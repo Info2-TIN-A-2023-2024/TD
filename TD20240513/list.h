@@ -23,5 +23,5 @@ typedef struct {
 
 error_code init_list(list *l);
 void display_list(const list l);
-bool list_is_full(list l);
-error_code insert(list *l, element e, size_t position);
+bool list_is_full(const list l);
+error_code insert(list *l, const element e, const size_t position);

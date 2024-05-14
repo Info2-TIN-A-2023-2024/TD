@@ -6,7 +6,8 @@ int main(int argc, const char *argv[])
 	init_list(&l);
 	display_list(l);
 
-	element e = {.x = 1, .y = 1.};
+	element e;
+	e.x = 1, e.y = 1;
 	insert(&l, e, 0);
 	display_list(l);
 	return 0;

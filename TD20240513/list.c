@@ -1,12 +1,13 @@
 #include "list.h"
 #include <stdlib.h>
+#include <string.h>
 
 error_code init_list(list *l)
 {
-
-    l->e = (element *)malloc(INITIAL_CAPACITY * sizeof(element));
+    l->e = (element *)realloc(NULL, (INITIAL_CAPACITY) * sizeof(element));
     if (NULL == l->e)
         return ERR_ALLOC;
+    printf("init_list: l->e=%p\n", l->e);
     l->capacity = INITIAL_CAPACITY;
     l->num_elem = 0;
     return NO_ERROR;
@@ -23,15 +24,28 @@ void display_list(const list l)
     }
 }
 
-bool list_is_full(list l)
+bool list_is_full(const list l)
 {
     return (l.capacity == l.num_elem);
 }
 
-error_code insert(list *l, element e, size_t position)
+bool list_is_empty(const list l)
 {
-    if(list_is_full(*l))
-        return ERR_LIST_FULL;
+    return (0 == l.num_elem);
+}
 
-    // TODO: implementation of the insertion
+error_code insert(list *l, const element e, const size_t position)
+{
+    return NO_ERROR;
+}
+
+{
+    if (list_is_empty(l))
+        return ERR_LIST_EMPTY;
+
+    if (position >= l.num_elem)
+        return ERR_BAD_POSITION;
+
+    memcpy(&(l.e[position]), &e, sizeof(element));
+    return NO_ERROR;
 }
