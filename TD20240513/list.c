@@ -37,18 +37,12 @@ bool list_is_empty(const list l)
 error_code insert(list *l, const element e, const size_t position)
 {
     if (list_is_full(*l))
-    {
-        element *tmp = (element *)realloc(l->e, (l->capacity+UPDATE_CAPACITY) * sizeof(element));
-        if (NULL == tmp)
-            return ERR_LIST_FULL;
-        l->e = tmp;
-        l->capacity += UPDATE_CAPACITY;
-    }
-
+        return ERR_LIST_FULL;
+    
     if (position > l->num_elem)
         return ERR_BAD_POSITION;
 
-    for (int i = l->num_elem ; i > position; i--)
+    for (int i = l->num_elem; i > position; i--)
     {
         l->e[i] = l->e[i - 1];
     }
