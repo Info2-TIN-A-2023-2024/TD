@@ -7,12 +7,8 @@
 #define INITIAL_CAPACITY 5
 #define UPDATE_CAPACITY 4
 
-typedef struct {
-    double x;
-    double y;
-} point2D;
 
-typedef point2D element;
+typedef char element;
 
 typedef struct {
 

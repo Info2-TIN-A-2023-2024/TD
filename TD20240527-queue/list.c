@@ -15,12 +15,10 @@ error_code init_list(list *l)
 
 void display_list(const list l)
 {
-    printf("capacity=%zu\n", l.capacity);
-    printf("num_elem=%zu\n", l.num_elem);
     for (size_t index = 0; index < l.num_elem; index++)
     {
-        printf("%3zu (%+8.3lf,%+8.3lf)\n",
-               index, l.e[index].x, l.e[index].y);
+        printf("%cx",
+               l.e[index]);
     }
 }
 
