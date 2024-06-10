@@ -1,4 +1,5 @@
 #include "list.h"
+#include <string.h>
 
 error_code init_list(list *l)
 {
@@ -9,9 +10,16 @@ error_code init_list(list *l)
 }
 
 node* create_node(const element e){
-    // alloc dyn du node
-    // recopie de l'element
-    // init des pointeurs next et prev
-
-    // la fonction renvoie l'adresse du node ou NULL si problème
+	node *new_node = (node *)malloc(sizeof(node));
+	if (new_node == NULL)
+	{
+		return NULL;
+	}
+	memcpy(&new_node->e, &e, sizeof(element));
+	new_node->prev = NULL;
+	new_node->next = NULL;
+	return new_node;
+}
+void insert_node_at_index(list *l, node *n, int index) {
+	return;
 }
